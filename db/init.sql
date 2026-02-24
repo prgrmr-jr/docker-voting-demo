@@ -7,9 +7,12 @@ CREATE TABLE courses
 CREATE TABLE votes
 (
     id         SERIAL PRIMARY KEY,
-    course_id  INT NOT NULL,
+    course_id  INT          NOT NULL,
+    session_id VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (course_id) REFERENCES courses (id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (course_id) REFERENCES courses (id),
+    UNIQUE (session_id)
 );
 
 INSERT INTO courses (name)

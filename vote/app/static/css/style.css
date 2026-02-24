@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #009267 0%, #006b52 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    padding: 50px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    color: #009267;
+    margin-bottom: 10px;
+    font-size: 32px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.vote-status {
+    background-color: #e8f5f0;
+    color: #009267;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+}
+
+.vote-status.show {
+    display: block;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vote-button {
+    background-color: #009267;
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 146, 103, 0.3);
+    position: relative;
+}
+
+.vote-button:hover {
+    background-color: #006b52;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 146, 103, 0.4);
+}
+
+.vote-button:active {
+    transform: translateY(0);
+}
+
+.vote-button.selected {
+    background-color: #004d3d;
+    box-shadow: 0 4px 15px rgba(0, 77, 61, 0.4);
+}
+
+.vote-button.selected::after {
+    content: "✓ Your vote";
+    position: absolute;
+    right: 15px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-success {
+    background-color: #10b981;
+    color: white;
+}
+
+.toast-error {
+    background-color: #ef4444;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 35px 25px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 8px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .vote-button {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+
+    .vote-button.selected::after {
+        font-size: 11px;
+        right: 12px;
+    }
+
+    .toast {
+        bottom: 15px;
+        right: 15px;
+        left: 15px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 25px 20px;
+        border-radius: 8px;
+    }
+
+    h1 {
+        font-size: 22px;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .vote-status {
+        padding: 10px 15px;
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .button-group {
+        gap: 10px;
+    }
+
+    .vote-button {
+        padding: 12px 16px;
+        font-size: 14px;
+        box-shadow: 0 2px 10px rgba(0, 146, 103, 0.3);
+    }
+
+    .vote-button.selected::after {
+        font-size: 10px;
+        right: 10px;
+    }
+
+    .toast {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        padding: 12px 16px;
+        font-size: 12px;
+        border-radius: 6px;
+    }
+}
