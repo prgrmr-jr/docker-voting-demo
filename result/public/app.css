@@ -1,0 +1,130 @@
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #e6fff7, #85fdd4);
+    margin: 0;
+    padding: 30px;
+    color: #003d31;
+}
+
+/* HEADER */
+h1 {
+    text-align: center;
+    font-size: 2.8em;
+    margin-bottom: 40px;
+    color: #004d3d;
+    letter-spacing: -1px;
+}
+
+/* GRID */
+#results {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* CARD */
+.card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 22px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 77, 61, 0.15);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 18px 40px rgba(0, 77, 61, 0.25);
+}
+
+/* RANK BADGE */
+.rank {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #007c5b, #004d3d);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.85em;
+}
+
+/* TITLE */
+h2 {
+    margin: 0 0 12px;
+    font-size: 1.4em;
+}
+
+/* STATS ROW */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95em;
+    margin-bottom: 10px;
+}
+
+.votes {
+    font-weight: bold;
+    color: #007c5b;
+}
+
+.percent {
+    font-weight: bold;
+    color: #004d3d;
+}
+
+/* BAR */
+.bar {
+    height: 14px;
+    background: #e0f2ec;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: linear-gradient(90deg, #007c5b, #00a67e);
+    border-radius: 20px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:nth-child(1) {
+    border: 2px solid #00a67e;
+    box-shadow: 0 0 20px rgba(0, 166, 126, 0.4);
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+}
+
+.pulse {
+    animation: pulseAnim 0.3s ease;
+}
+
+@keyframes pulseAnim {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.card {
+    will-change: transform;
+}
+
+.fill {
+    transition: width 0.9s ease;
+}
