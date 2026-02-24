@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting App</title>
+    <link rel="icon" href="https://framerusercontent.com/images/SVMOCCDwRjDrno5aEZdiswCLQ.png">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Vote for Your Favorite Course</h1>
+        <p class="subtitle">Select the course you'd like to vote for</p>
+
+        <div class="vote-status" id="voteStatus"></div>
+
+        <div class="button-group">
+            {% for course_id, course_name in courses %}
+                <button class="vote-button" onclick="vote({{ course_id }}, '{{ course_name }}')">
+                    {{ course_name }}
+                </button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

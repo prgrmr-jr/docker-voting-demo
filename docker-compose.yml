@@ -1,19 +1,16 @@
-version: '3.8'
+version: "3.9"
 
 services:
   db:
     image: postgres:alpine3.22
     container_name: postgres_db
     restart: always
-
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-
     ports:
       - "5432:5432"
-
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -27,11 +24,30 @@ services:
 
   worker:
     build: ./worker
+    image: voting-worker:v1
     container_name: voting_worker
     restart: always
     depends_on:
       - db
       - redis
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      REDIS_HOST: redis_db
+      REDIS_PORT: 6379
+
+  vote_app:
+    build: ./vote
+    image: vote-app:v1
+    container_name: vote_app
+    restart: always
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8080:8080"
     environment:
       POSTGRES_HOST: db
       POSTGRES_DB: ${POSTGRES_DB}

@@ -4,11 +4,13 @@ import time
 import os
 import json
 
+# POSTGRES CONFIG
 POSTGRES_HOST = os.getenv("POSTGRES_HOST")
 POSTGRES_DB = os.getenv("POSTGRES_DB")
 POSTGRES_USER = os.getenv("POSTGRES_USER")
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 
+# REDIS CONFIG
 REDIS_HOST = os.getenv("REDIS_HOST")
 REDIS_PORT = int(os.getenv("REDIS_PORT"))
 
@@ -33,7 +35,7 @@ print("Worker ready, listening to Redis...")
 
 while True:
     _, vote_data = r.blpop("votes_queue")
-    vote_data = vote_data.decode('utf-8')
+    vote_data = vote_data.decode("utf-8")
     print(f"DEBUG: Raw vote_data = {vote_data}")
 
     try:
@@ -43,18 +45,25 @@ while True:
 
     if isinstance(vote, dict):
         course_id = vote.get("course_id")
+        session_id = vote.get("session_id")
     else:
         course_id = int(vote)
+        session_id = None
 
-    print(f"DEBUG: course_id = {course_id}, type = {type(course_id)}")
+    print(f"DEBUG: course_id = {course_id}, session_id = {session_id}")
 
-    if course_id is None:
-        print("ERROR: course_id is None, skipping")
+    if course_id is None or session_id is None:
+        print("ERROR: course_id or session_id is None, skipping")
         continue
 
     cursor.execute(
-        "INSERT INTO votes (course_id) VALUES (%s)",
-        (course_id,)
+        """
+        INSERT INTO votes (course_id, session_id)
+        VALUES (%s, %s) ON CONFLICT (session_id)
+        DO
+        UPDATE SET course_id = EXCLUDED.course_id, updated_at = CURRENT_TIMESTAMP
+        """,
+        (course_id, session_id)
     )
     conn.commit()
-    print(f"Processed vote for course_id={course_id}")
+    print(f"Processed vote for course_id={course_id}, session_id={session_id}")
