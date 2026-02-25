@@ -26,7 +26,7 @@ User → Vote App → Redis → Worker → Postgres → Result App (real-time UI
 1️⃣ Build and start all services
 
 ```
-docker compose up --build
+docker compose up -d
 ```
 
 2️⃣ Access the apps
@@ -39,7 +39,7 @@ docker compose up --build
 - Open the voting page
 - Click any course
 - Open the results page
-- Watch the leaderboard update in real-time with smooth animations 🎯
+- Watch the leaderboard update in real-time
 
 ---
 
@@ -75,8 +75,6 @@ Benefits:
 - 🧵 Asynchronous processing (non-blocking)
 - 🧱 Scalable (can add more workers easily)
 - 🛡️ Protects the database from overload
-
-This pattern is widely used in real-world systems like queue-based processing in platforms such as Netflix.
 
 ---
 
